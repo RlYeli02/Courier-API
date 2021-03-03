@@ -1,5 +1,5 @@
 
 
-const CONNECTION_URL = 'mongodb://franyeliza-123:6nOq36DXx0RQJn4oUGYw8pMzbRkwtRaQDuP2FkbaNQnCPJC2QbsUSRrjQR7pjqVOdfowXgK9aSuEe7HXWbscYA%3D%3D@franyeliza-123.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@franyeliza-123@';
+const CONNECTION_URL = 'mongodb+srv://FranyelizaRodriguez:Macbookprorl1122556@cluster0.p6z0v.mongodb.net/Courrier?retryWrites=true&w=majority';
 
 module.exports = CONNECTION_URL;
