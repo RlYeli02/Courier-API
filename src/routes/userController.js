@@ -64,18 +64,17 @@ router.post("/signup", async (req, res) => {
 router.post('/login', async (req, res) =>{
     var user ={};
     user.email =req.body.email
-    user.password =req.body.password
+     user.password =req.body.password
    
     try {
-         await UserModel.findOne({email:user.email, password:user.password})
+         await UserModel.findOne({email:user.email})
          .then(profile=>{
             if(!profile){
-                res.send("user doesn't exist")
-                
-                
+                res.status(404);
+                res.send('incorrect email')
             }
             else{
-                bcrypt.compare (
+                bcrypt.compare(
                     user.password,
                     profile.password,
                     async (err, result) => {
@@ -86,7 +85,8 @@ router.post('/login', async (req, res) =>{
                        res.send("User authenticated");
                        
                     }  else {
-                       res.send("User Unauthorized Access");
+                        res.status(404)
+                       res.send("incorrect password");
                     }
                    }
                 );
