@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyparser.json({ limit: "15mb", extended: true}));
 app.use(bodyparser.urlencoded({limit: "15mb", extended: true}));
 
-app.use('/users',userRouter);
+app.use('/api',userRouter);
 app.use('/packages',packagesRouter);
 
 const PORT = process.env.PORT || 3001;

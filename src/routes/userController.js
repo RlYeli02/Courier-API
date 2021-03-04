@@ -14,24 +14,10 @@ router.get('/', async (req, res) =>{
         res.status(404).json({message: error.message});
     }
 });
-router.get('/packages', async(req, res)=>{
-    console.log("get working");
-    var user ={};
-    user.owner =req.body._id,
-    user._id=req.body._id
-    
-    try{
-        let found = await PackageModel.find({owner:req.body._id, _id:req.body._id })
-        res.status(200).json(found)
-    }
-    catch (error){
-        res.status(404).json({message: error.message});
-    }
-})
 
 
 
-router.post("/signup", async (req, res) => {
+router.post("/membership/signup", async (req, res) => {
   var newUser = new UserModel({
       name: req.body.name,
     email: req.body.email,
@@ -42,6 +28,7 @@ router.post("/signup", async (req, res) => {
   await UserModel.findOne({ email: newUser.email })
     .then(async profile => {
       if (!profile) {
+          
         bcrypt.hash(newUser.password, saltRouds, async (err, hash) => {
           if (err) {
             console.log("Error is", err.message);
@@ -66,7 +53,7 @@ router.post("/signup", async (req, res) => {
     });
 });
 
-router.post('/login', async (req, res) =>{
+router.post('/membership/login', async (req, res) =>{
     var user ={};
     user.email =req.body.email
      user.password =req.body.password
@@ -85,6 +72,7 @@ router.post('/login', async (req, res) =>{
                     async (err, result) => {
                     if (err) {
                       console.log("Error is", err.message);
+                  
                     }  else if (result == true) {
                        res.status(200)
                        res.send("User authenticated");
@@ -103,5 +91,21 @@ router.post('/login', async (req, res) =>{
         console.log(error);
     }
 });
+
+router.get('/packages/getPending', async(req, res)=>{
+    console.log("get working");
+    var user ={};
+    user.owner =req.body._id,
+    user._id=req.body._id
+   
+    
+    try{
+        let found = await PackageModel.find({owner:"604106715e73123c7598e926" })
+        res.status(200).json(found)
+    }
+    catch (error){
+        res.status(404).json({message: error.message});
+    }
+})
 
 module.exports = router;
