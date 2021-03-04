@@ -15,16 +15,16 @@ router.get('/', async (req, res) =>{
     }
 });
 
-router.get('/packages/user', async (req, res) =>{
+// router.get('/packages/user', async (req, res) =>{
 
-    try{
-       let foundAll = await UserModel.find()
-        res.status(200).json(foundAll)
-    }
-    catch (error){
-        res.status(404).json({message: error.message});
-    }
-});
+//     try{
+//        let foundAll = await UserModel.find()
+//         res.status(200).json(foundAll)
+//     }
+//     catch (error){
+//         res.status(404).json({message: error.message});
+//     }
+// });
 
 router.post("/signup", async (req, res) => {
   var newUser = new UserModel({
@@ -67,10 +67,12 @@ router.post('/login', async (req, res) =>{
     user.password =req.body.password
    
     try {
-         let userLogged = await UserModel.findOne({email:user.email})
+         await UserModel.findOne({email:user.email, password:user.password})
          .then(profile=>{
             if(!profile){
                 res.send("user doesn't exist")
+                
+                
             }
             else{
                 bcrypt.compare (
@@ -80,7 +82,9 @@ router.post('/login', async (req, res) =>{
                     if (err) {
                       console.log("Error is", err.message);
                     }  else if (result == true) {
+                       res.status(200)
                        res.send("User authenticated");
+                       
                     }  else {
                        res.send("User Unauthorized Access");
                     }
