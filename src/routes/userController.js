@@ -2,7 +2,7 @@ const router = require('express').Router();
 const UserModel = require('../models/user')
 var bcrypt = require('bcrypt')
 var saltRouds = 10
-
+const PackageModel = require('../models/package')
 
 router.get('/', async (req, res) =>{
 
@@ -14,17 +14,22 @@ router.get('/', async (req, res) =>{
         res.status(404).json({message: error.message});
     }
 });
+router.get('/packages', async(req, res)=>{
+    console.log("get working");
+    var user ={};
+    user.owner =req.body._id,
+    user._id=req.body._id
+    
+    try{
+        let found = await PackageModel.find({owner:req.body._id, _id:req.body._id })
+        res.status(200).json(found)
+    }
+    catch (error){
+        res.status(404).json({message: error.message});
+    }
+})
 
-// router.get('/packages/user', async (req, res) =>{
 
-//     try{
-//        let foundAll = await UserModel.find()
-//         res.status(200).json(foundAll)
-//     }
-//     catch (error){
-//         res.status(404).json({message: error.message});
-//     }
-// });
 
 router.post("/signup", async (req, res) => {
   var newUser = new UserModel({

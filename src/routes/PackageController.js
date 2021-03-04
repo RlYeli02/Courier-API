@@ -1,10 +1,13 @@
 const PackageModel = require('../models/package')
 const router = require('express').Router();
+const UserModel = require('../models/user')
 
-router.get('/task/:id', async(req, res)=>{
+
+router.get('/', async(req, res)=>{
     console.log("get working");
+
     try{
-        let found = await PackageModel.findOne({ _id, owner: req.user._id })
+        let found = await PackageModel.find()
         res.status(200).json(found)
     }
     catch (error){
@@ -12,7 +15,7 @@ router.get('/task/:id', async(req, res)=>{
     }
 })
 router.post('/newpackages', async (req, res) =>{
-     const newpackage = new PackageModel({...req.body,owner:req.user._id})
+     const newpackage = new PackageModel({...req.body})
      try{
 
         let savedPackage = await newpackage.save();
