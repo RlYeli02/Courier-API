@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 var mongoose = require("mongoose")
-const CONNECTION_URL =  require ('./config')
+const CONNECTION_URL =  require ('../config')
 const userRouter = require ('./routes/userController')
 const packagesRouter = require ('./routes/PackageController')
 const bodyparser = require('body-parser');
